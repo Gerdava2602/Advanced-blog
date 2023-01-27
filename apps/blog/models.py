@@ -1,5 +1,7 @@
 from django.db import models
 import uuid
+from django.utils import timezone
+from apps.category.models import Category
 
 # Create your models here.
 def blog_directory_path(instance, filename):
@@ -26,4 +28,29 @@ class Post(models.Model):
     excerpt = models.CharField(max_length=100)
     
     # author = models.CharField(max_length=100)
-    # category = models.ForeignKey(BlogCategory, on_delete=models.PROTECT)
+    category = models.ForeignKey(Category, on_delete=models.PROTECT)
+    
+    published = models.DateTimeField(default=timezone.now)
+
+    status = models.CharField(max_length=10, choices=options, default='draft')
+    
+    objects = models.Manager() # The default manager.
+    postobjects = PostObjects()
+
+    class Meta:
+        ordering = ('-published',)
+    
+    def __str__(self):
+        return self.title
+    
+    def get_thumbnail(self):
+        if self.thumbnail:
+            return self.thumbnail.url
+        else:
+            return ''
+    
+    def get_video(self):
+        if self.video:
+            return self.video.url
+        else:
+            return ''
