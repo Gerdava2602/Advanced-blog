@@ -52,7 +52,10 @@ THIRD_PARTY_APPS = [
     'ckeditor_uploader',
 ]
 
-LOCAL_APPS = []
+LOCAL_APPS = [
+    'apps.blog',
+    'apps.category'
+]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
