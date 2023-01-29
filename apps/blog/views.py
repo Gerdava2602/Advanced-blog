@@ -28,6 +28,22 @@ class BlogListView(APIView):
         else:
             return Response({'message': 'No posts found'}, status=status.HTTP_404_NOT_FOUND)
 
+class BlogListCategoryView(APIView):
+    def get(self, request, category_id,format=None):
+        if Post.objects.all().exists():
+            category = Category.objects.get(id=category_id)
+            posts = Post.postobjects.all().filter(category=category)
+
+            #Paginates data to prevent overload
+            paginator = SmallSetPagination()
+            results = paginator.paginate_queryset(posts, request)
+            # Convert data in JSON
+            serializer = PostSerializer(results, many=True)
+
+            return paginator.get_paginated_response({'posts': serializer.data})
+        else:
+            return Response({'message': 'No posts found'}, status=status.HTTP_404_NOT_FOUND)
+
 class PostDetailView(APIView):
     def get(self, request, post_slug,format=None):
         post = get_object_or_404(Post, slug=post_slug)
