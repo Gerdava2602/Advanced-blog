@@ -26,7 +26,7 @@ function BlogCategories({get_categories, categories}) {
                 {categories ? categories.map((category) => (
                   <a
                     key={category.name}
-                    href={category.href}
+                    href={`/blog/categories/${category.id}`}
                     className="relative w-56 h-80 rounded-lg p-6 flex flex-col overflow-hidden hover:opacity-75 xl:w-auto"
                   >
                     <span aria-hidden="true" className="absolute inset-0">

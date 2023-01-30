@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import BlogPost from "containers/pages/blog/BlogPost";
 import Blog from "containers/pages/blog/Blog";
+import BlogCategory from "containers/pages/category/BlogCategory";
 
 function App() {
   return (
@@ -17,6 +18,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/Blog" element={<Blog />} />
           <Route path="/Blog/post/:slug" element={<BlogPost />} />
+          <Route path="/Blog/categories/:category_id" element={<BlogCategory />} />
+
         </Routes>
       </Router>
     </Provider>
