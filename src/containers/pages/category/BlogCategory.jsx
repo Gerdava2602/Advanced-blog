@@ -1,3 +1,4 @@
+import BlogCard from "components/blog/BlogCard";
 import FullWidthLayout from "hocs/layouts/FullWidthLayout";
 import { useEffect } from "react";
 import { connect } from "react-redux";
@@ -11,10 +12,12 @@ function BlogCategory({ get_blog_list_category, blog_list }) {
   useEffect(() => {
     get_blog_list_category(category_id);
   }, []);
-  console.log(blog_list)
+  console.log(blog_list);
   return (
     <FullWidthLayout>
-      <div>Blog Category</div>
+      {blog_list.map((post, index) => {
+        return <BlogCard data={post} />;
+      })}
     </FullWidthLayout>
   );
 }

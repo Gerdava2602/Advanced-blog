@@ -5,6 +5,8 @@ import {
   GET_BLOG_LIST_SUCCESS,
   GET_BLOG_LIST_CATEGORIES_SUCCESS,
   GET_BLOG_LIST_CATEGORIES_FAIL,
+  GET_BLOG_SEARCH_RESULTS_SUCCESS,
+  GET_BLOG_SEARCH_RESULTS_FAIL,
 } from "../actions/types";
 
 const initialState = {
@@ -36,7 +38,6 @@ export default function blog(state = initialState, action) {
         previous: null,
       };
     case GET_BLOG_LIST_CATEGORIES_SUCCESS:
-      console.log("reducer", payload);
       return {
         ...state,
         blog_list_category: payload.results.posts,
@@ -45,7 +46,6 @@ export default function blog(state = initialState, action) {
         previous: payload.previous,
       };
     case GET_BLOG_LIST_CATEGORIES_FAIL:
-      console.log("reducer fail", payload);
       return {
         ...state,
         blog_list_category: null,
@@ -53,6 +53,22 @@ export default function blog(state = initialState, action) {
         next: null,
         previous: null,
       };
+    case GET_BLOG_SEARCH_RESULTS_SUCCESS:
+      return {
+        ...state,
+        blog_search_results: payload.results.posts,
+        count: payload.count,
+        next: payload.next,
+        previous: payload.previous,
+      }
+    case GET_BLOG_SEARCH_RESULTS_FAIL:
+      return {
+        ...state,
+        blog_search_results: null,
+        count: null,
+        next: null,
+        previous: null,
+      }
     case GET_BLOG_SUCCESS:
       return {
         ...state,

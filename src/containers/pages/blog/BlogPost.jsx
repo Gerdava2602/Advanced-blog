@@ -10,7 +10,7 @@ function BlogPost({
     const slug = params.slug
 
     useEffect(()=> {
-        get_blog()
+        get_blog(slug)
     }, [])
 
     return(
