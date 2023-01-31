@@ -44,24 +44,28 @@ class BlogListCategoryView(APIView):
         else:
             return Response({'message': 'No posts found'}, status=status.HTTP_404_NOT_FOUND)
 
-class BlogListSearchView(APIView):
-    def get(self, request, search_str, format=None):
-        if Post.objects.all().exists():
-            posts = Post.postobjects.all().filter(Q(title__icontains=search_str) | Q(slug__icontains=search_str) | Q(description__icontains=search_str) | Q(excerpt__icontains=search_str))
-
-            #Paginates data to prevent overload
-            paginator = SmallSetPagination()
-            results = paginator.paginate_queryset(posts, request)
-            # Convert data in JSON
-            serializer = PostSerializer(results, many=True)
-
-            return paginator.get_paginated_response({'posts': serializer.data})
-        else:
-            return Response({'message': 'No posts found'}, status=status.HTTP_404_NOT_FOUND)
-
 class PostDetailView(APIView):
     def get(self, request, post_slug,format=None):
         post = get_object_or_404(Post, slug=post_slug)
         serializer = PostSerializer(post)
         return Response({'post':serializer.data}, status=status.HTTP_200_OK)
+
+class BlogListSearchView(APIView):
+    def get(self, request, search_str, format=None):
+        if Post.objects.all().exists():
+            posts = Post.postobjects.filter( 
+                Q(title__icontains=search_str) |
+                Q(description__icontains=search_str) |
+                Q(category__name__icontains=search_str)
+            )
+
+            #Paginates data to prevent overload
+            paginator = MediumSetPagination()
+            results = paginator.paginate_queryset(posts, request)
+            # Convert data in JSON
+            serializer = PostSerializer(results, many=True)
+
+            return paginator.get_paginated_response({'filtered_posts': serializer.data})
+        else:
+            return Response({'message': 'No posts found'}, status=status.HTTP_404_NOT_FOUND)
 

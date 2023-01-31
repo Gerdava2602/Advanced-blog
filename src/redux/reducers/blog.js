@@ -12,6 +12,7 @@ import {
 const initialState = {
   blog: null,
   blog_list_category: null,
+  filtered_posts: null,
   post: null,
   count: null,
   next: null,
@@ -56,7 +57,7 @@ export default function blog(state = initialState, action) {
     case GET_BLOG_SEARCH_RESULTS_SUCCESS:
       return {
         ...state,
-        blog_search_results: payload.results.posts,
+        filtered_posts: payload.results.filtered_posts,
         count: payload.count,
         next: payload.next,
         previous: payload.previous,
@@ -64,7 +65,7 @@ export default function blog(state = initialState, action) {
     case GET_BLOG_SEARCH_RESULTS_FAIL:
       return {
         ...state,
-        blog_search_results: null,
+        filtered_posts: null,
         count: null,
         next: null,
         previous: null,

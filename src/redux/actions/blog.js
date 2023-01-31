@@ -112,6 +112,7 @@ export const get_blog_list_category_page = (category_id, page) => async (dispatc
       `${process.env.REACT_APP_API_URL}/api/blog/category/${category_id}?p=${page}`,
       config
     );
+    console.log('done')
     if (res.status === 200) {
       dispatch({
         type: GET_BLOG_LIST_CATEGORIES_SUCCESS,

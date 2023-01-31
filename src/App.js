@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import BlogPost from "containers/pages/blog/BlogPost";
 import Blog from "containers/pages/blog/Blog";
 import BlogCategory from "containers/pages/category/BlogCategory";
+import Search from "containers/pages/blog/Search";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/Blog" element={<Blog />} />
           <Route path="/Blog/post/:slug" element={<BlogPost />} />
           <Route path="/Blog/categories/:category_id" element={<BlogCategory />} />
+          <Route path="/search/:term" element={<Search />} />
 
         </Routes>
       </Router>

@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { Menu, Popover, Transition } from "@headlessui/react";
 import { SearchIcon } from "@heroicons/react/solid";
 import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
@@ -21,6 +21,19 @@ function classNames(...classes) {
 }
 
 function Navbar() {
+  const [effectSearch, setEffectSearch] = useState(false);
+  const [term, setTerm] = useState("");
+
+  const handleSearch = (e) => {
+    setTerm(e.target.value);
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    setTimeout(() => {
+      window.location.href = (`/search/${term}`);
+    }, 0.2);
+  };
   return (
     <>
       {/* When the mobile menu is open, add `overflow-hidden` to the `body` element to prevent double scrollbars */}
@@ -50,26 +63,31 @@ function Navbar() {
                 </div>
                 <div className="min-w-0 flex-1 md:px-8 lg:px-0 xl:col-span-6">
                   <div className="flex items-center px-6 py-4 md:max-w-3xl md:mx-auto lg:max-w-none lg:mx-0 xl:px-0">
-                    <div className="w-full">
+                    <form className="w-full" onSubmit={(e) => onSubmit(e)}>
                       <label htmlFor="search" className="sr-only">
                         Search
                       </label>
                       <div className="relative">
-                        <div className="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
+                        <button
+                          type="submit"
+                          className="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center"
+                        >
                           <SearchIcon
                             className="h-5 w-5 text-gray-400"
                             aria-hidden="true"
                           />
-                        </div>
+                        </button>
                         <input
                           id="search"
                           name="search"
+                          required
+                          onChange={(e) => handleSearch(e)}
                           className="block w-full bg-white border border-gray-300 rounded-md py-2 pl-10 pr-3 text-sm placeholder-gray-500 focus:outline-none focus:text-gray-900 focus:placeholder-gray-400 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                           placeholder="Search"
                           type="search"
                         />
                       </div>
-                    </div>
+                    </form>
                   </div>
                 </div>
                 <div className="flex items-center md:absolute md:right-0 md:inset-y-0 lg:hidden">
@@ -84,15 +102,24 @@ function Navbar() {
                   </Popover.Button>
                 </div>
                 <div className="hidden lg:flex lg:items-center lg:justify-end xl:col-span-4">
-                    <NavLink to="/blog" className="text-lg dark:hover:text-white hover:text-gray-900 text-gray-600 dark:text-dark-txt text-md font-semibold">
-                        Blog
-                    </NavLink>
-                    <NavLink to="/about" className="mx-4 text-lg dark:hover:text-white hover:text-gray-900 text-gray-600 dark:text-dark-txt text-md font-semibold">
-                        About
-                    </NavLink>
-                    <NavLink to="/contact" className="text-lg dark:hover:text-white hover:text-gray-900 text-gray-600 dark:text-dark-txt text-md font-semibold">
-                        Contact
-                    </NavLink>
+                  <NavLink
+                    to="/blog"
+                    className="text-lg dark:hover:text-white hover:text-gray-900 text-gray-600 dark:text-dark-txt text-md font-semibold"
+                  >
+                    Blog
+                  </NavLink>
+                  <NavLink
+                    to="/about"
+                    className="mx-4 text-lg dark:hover:text-white hover:text-gray-900 text-gray-600 dark:text-dark-txt text-md font-semibold"
+                  >
+                    About
+                  </NavLink>
+                  <NavLink
+                    to="/contact"
+                    className="text-lg dark:hover:text-white hover:text-gray-900 text-gray-600 dark:text-dark-txt text-md font-semibold"
+                  >
+                    Contact
+                  </NavLink>
                 </div>
               </div>
             </div>

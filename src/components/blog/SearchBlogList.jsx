@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { get_blog_list, get_blog_list_page } from "redux/actions/blog";
 import BlogCard from "./BlogCard";
 
-function BlogList({ get_blog_list_page, blog_list, count }) {
+function SearchBlogList({ get_blog_list_page, blog_list, count }) {
 
   return (
     <div>
@@ -40,4 +40,4 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
-})(BlogList);
+})(SearchBlogList);

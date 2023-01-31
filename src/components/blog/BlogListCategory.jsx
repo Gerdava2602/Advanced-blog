@@ -1,11 +1,9 @@
 import LoadingCart from "components/loaders/LoadingCart";
-import SmallSetPagination from "components/pagination/Pagination";
-import { useEffect } from "react";
+import CategoriesSmallSetPagination from "components/pagination/CategoriesPagination";
 import { connect } from "react-redux";
-import { get_blog_list, get_blog_list_page } from "redux/actions/blog";
 import BlogCard from "./BlogCard";
 
-function BlogList({ get_blog_list_page, blog_list, count }) {
+function BlogListCategory({ get_blog_list_page, blog_list, count, category_id }) {
 
   return (
     <div>
@@ -21,10 +19,11 @@ function BlogList({ get_blog_list_page, blog_list, count }) {
                   return <BlogCard data={post} />;
                 })}
               </div>
-              <SmallSetPagination
+              <CategoriesSmallSetPagination
                 get_blog_list_page={get_blog_list_page}
                 blog_list={blog_list}
                 count={count}
+                category_id={category_id}
               />
             </div>
           </div>
@@ -40,4 +39,4 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
-})(BlogList);
+})(BlogListCategory);
